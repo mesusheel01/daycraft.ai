@@ -6,17 +6,17 @@ const pc = new PrismaClient()
 
 export const POST = async (req: Request) => {
   try {
-    const { username, password } = await req.json()
+    const { username,email, password } = await req.json()
 
     // Here, you would typically add code to save the user to your database.
     // For demonstration purposes, we'll just return the received data.
 
-    if (!username || !password) {
+    if (!username || !email || !password) {
       return new Response(JSON.stringify({ error: "Email and password are required" }), { status: 400 })
     }
 
     // Simulate user creation
-    const existingUser =  await pc.user.findUnique({ where: { username } });
+    const existingUser =  await pc.user.findUnique({ where: { email } });
     if (existingUser) {
       return new Response(JSON.stringify({ error: "User already exists" }), { status: 400 })
     }
@@ -25,6 +25,7 @@ export const POST = async (req: Request) => {
     const newUser = await pc.user.create({
       data: {
         username,
+        email,
         password: hashedPassword,
       }
     });
