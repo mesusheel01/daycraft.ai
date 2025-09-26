@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DayCraft AI
+
+DayCraft AI is an AI-powered scheduling assistant built with Next.js, Prisma, NextAuth, and Tailwind CSS. Users can sign up, sign in (with credentials or OAuth), and send prompts to generate personalized schedules.
+
+# Design files
+
+```
+https://www.figma.com/design/1ZzqCj1WnRWGoeQDJLRTIC/day-craft?node-id=0-1&p=f&t=5omP9p1mxI5fspQB-0
+```
+
+## Features(In terms of me)
+
+<!--  -->
+
+- ✨ AI-powered daily scheduling
+- 🔒 Secure authentication (Credentials, GitHub, Google)
+- 🗂️ User registration and login
+- 🎨 Beautiful, responsive UI with Tailwind CSS
+- 🧑‍💻 Built with Next.js App Router and Prisma ORM
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/yourusername/day-craft.git
+cd day-craft
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Set up environment variables
+
+Create a `.env` file in the root directory and add:
+
+```
+DATABASE_URL=your_postgres_or_mysql_url
+NEXTAUTH_SECRET=your_nextauth_secret
+GITHUB_ID=your_github_client_id
+GITHUB_SECRET=your_github_client_secret
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
+
+### 4. Set up the database
+
+```bash
+npx prisma migrate dev
+```
+
+### 5. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000) to view the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  api/
+    auth/
+      [...nextauth]/route.ts   # NextAuth configuration
+      register/route.ts        # User registration API
+    task/                      # Task APIs
+  dashboard/                   # Dashboard page
+  signin/                      # Sign-in page
+  signup/                      # Sign-up page
+  page.tsx                     # Home page
+  layout.tsx                   # App layout
+components/
+  SessionWrapper.tsx           # NextAuth session provider
+prisma/
+  schema.prisma                # Prisma schema
+public/
+  favicon.ico                  # App icon
+```
 
-## Learn More
+## Authentication
 
-To learn more about Next.js, take a look at the following resources:
+- **Credentials:** Username & password (stored securely with bcrypt)
+- **OAuth:** GitHub & Google
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scheduling
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+After signing in, users can send prompts to DayCraft AI, which generates a personalized schedule using AI.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+MIT
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+Made with ❤️ by the DayCraft AI

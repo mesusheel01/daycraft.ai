@@ -14,18 +14,26 @@ const Signup = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    const res = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, password }),
-    });
-    if (res?.error) {
-      setError("Invalid username or password!");
-    } else {
-      router.push("/dashboard");
-    }
+    try {
+      console.log("inside try")
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, email, password })
+      });
+      console.log("after fetch", res)
+      if (res.ok) {
+        // Redirect to sign-in page after successful signup
+        router.push("/dashboard");
+      } else {
+        const data = await res.json();
+        setError(data.message || "Something went wrong!");
+      }
+    } catch (error) {
+      setError("Something went wrong!");
+    } 
   };
 
   return (
