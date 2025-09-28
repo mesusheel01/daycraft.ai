@@ -1,13 +1,13 @@
 'use client'
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Signin from "../signin/page";
 import Link from "next/link";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [msg, setMsg] = useState("Sign Up");
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
@@ -23,6 +23,7 @@ const Signup = () => {
         },
         body: JSON.stringify({ username, email, password })
       });
+      setMsg("Sign Up");
       console.log("after fetch", res)
       if (res.ok) {
         // Redirect to sign-in page after successful signup
@@ -90,9 +91,10 @@ const Signup = () => {
           </div>
           <button
             type="submit"
+            onClick={() => setMsg("Signing Up...")}
             className="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-md transition"
           >
-            Sign Up 
+            {msg}
           </button>
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
         </form>

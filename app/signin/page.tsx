@@ -6,6 +6,7 @@ import { useState } from "react";
 const Signin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [msg, setMsg] = useState("Sign In"); 
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
@@ -18,6 +19,7 @@ const Signin = () => {
       redirect: false,
       callbackUrl: "/dashboard"
     });
+    setMsg("Sign In");
     if (res?.error) {
       setError("Invalid username or password!");
     } else {
@@ -66,9 +68,10 @@ const Signin = () => {
           </div>
           <button
             type="submit"
+            onClick={() => setMsg("Signing In...")}
             className="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-md transition"
           >
-            Sign In
+            {msg}
           </button>
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
         </form>
