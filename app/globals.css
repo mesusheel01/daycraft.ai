@@ -53,4 +53,10 @@
   .text-btn-accent {
     color: var(--color-btnaccent);
   }
+  .text-accent{
+    color: var(--color-accent);
+  }
+  .bg-accent{
+    background-color: var(--color-accent);
+  }
 }

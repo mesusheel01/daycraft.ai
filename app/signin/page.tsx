@@ -28,11 +28,10 @@ const Signin = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-200">
-      <div className="bg-white/80 backdrop-blur-lg shadow-xl rounded-2xl p-8 w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="bg-white/80 border-1 shadow-lg backdrop-blur-lg shadow-xl rounded-2xl p-8 w-full max-w-md">
         <div className="flex flex-col items-center mb-8">
-          <img src="/favicon.ico" alt="DayCraft AI Logo" className="w-16 h-16 mb-2" />
-          <h1 className="text-3xl font-bold text-indigo-700 mb-1">DayCraft AI</h1>
+          <h1 className="text-3xl font-semibold text-accent mb-1">DayCraft AI</h1>
           <p className="text-gray-500 text-center text-sm">
             Your AI-powered scheduling assistant.<br />
             Send a prompt, get your day crafted!
@@ -48,8 +47,8 @@ const Signin = () => {
               type="text"
               id="username"
               name="username"
-              required
-              className="mt-1 block w-full px-2 text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              required-j-j
+              className="mt-1 border-b block w-full px-2 text-gray-900 rounded-md  shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               autoComplete="username"
             />
           </div>
@@ -62,14 +61,14 @@ const Signin = () => {
               id="password"
               name="password"
               required
-              className="mt-1 block w-full rounded-md px-2 text-gray-900 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-1 border-b block w-full px-2 text-gray-900 rounded-md  shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               autoComplete="current-password"
             />
           </div>
           <button
             type="submit"
             onClick={() => setMsg("Signing In...")}
-            className="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-md transition"
+            className="w-full border-1  py-2 px-4 bg-btn-accent hover:bg-btn-accent-hover font-semibold rounded-md transition"
           >
             {msg}
           </button>

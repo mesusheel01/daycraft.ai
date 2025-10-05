@@ -30,7 +30,8 @@ const Signup = () => {
         router.push("/dashboard");
       } else {
         const data = await res.json();
-        setError(data.message || "Something went wrong!");
+        console.log(data)
+        setError(data.error || "Something went wrong!");
       }
     } catch (error) {
       setError("Something went wrong!");
@@ -38,17 +39,16 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-200">
-      <div className="bg-white/80 backdrop-blur-lg shadow-xl rounded-2xl p-8 w-full max-w-md">
+     <div className="min-h-screen flex items-center justify-center">
+      <div className="bg-white/80 border-1 shadow-lg backdrop-blur-lg shadow-xl rounded-2xl p-8 w-full max-w-md">
         <div className="flex flex-col items-center mb-8">
-          <img src="/favicon.ico" alt="DayCraft AI Logo" className="w-16 h-16 mb-2" />
-          <h1 className="text-3xl font-bold text-indigo-700 mb-1">DayCraft AI</h1>
+          <h1 className="text-3xl font-semibold text-accent mb-1">DayCraft AI</h1>
           <p className="text-gray-500 text-center text-sm">
             Your AI-powered scheduling assistant.<br />
             Send a prompt, get your day crafted!
           </p>
         </div>
-        <h2 className="text-xl text-black font-semibold  mb-4 text-center">Sign Up</h2>
+        <h2 className="text-xl text-black font-semibold  mb-4 text-center">Sign In</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="username" className="block text-sm font-medium text-gray-600">Username</label>
@@ -58,8 +58,8 @@ const Signup = () => {
               type="text"
               id="username"
               name="username"
-              required
-              className="mt-1 block w-full px-2 text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              required-j-j
+              className="mt-1 border-b block w-full px-2 text-gray-900 rounded-md  shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               autoComplete="username"
             />
           </div>
@@ -68,12 +68,12 @@ const Signup = () => {
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              type="text"
+              type="email"
               id="email"
               name="email"
               required
-              className="mt-1 block w-full px-2 text-gray-900 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              autoComplete="username"
+              className="mt-1 border-b block w-full px-2 text-gray-900 rounded-md  shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              autoComplete="email"
             />
           </div>
           <div>
@@ -85,14 +85,14 @@ const Signup = () => {
               id="password"
               name="password"
               required
-              className="mt-1 block w-full rounded-md px-2 text-gray-900 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-1 border-b block w-full px-2 text-gray-900 rounded-md  shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               autoComplete="current-password"
             />
           </div>
           <button
             type="submit"
             onClick={() => setMsg("Signing Up...")}
-            className="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-md transition"
+            className="w-full border-1  py-2 px-4 bg-btn-accent hover:bg-btn-accent-hover font-semibold rounded-md transition"
           >
             {msg}
           </button>
@@ -101,7 +101,7 @@ const Signup = () => {
         <div className="mt-6">
           <p className="text-gray-600 text-sm text-center">
             Already have an account?{" "}
-            <Link href="/signin" className="text-indigo-600 hover:underline">
+            <Link href="/signin" className="text-accent hover:underline">
               Sign in
             </Link>
           </p>

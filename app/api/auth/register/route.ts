@@ -32,6 +32,7 @@ export const POST = async (req: Request) => {
 
     return new Response(JSON.stringify({ message: "User registered successfully", user: newUser }), { status: 201 })
   } catch (error) {
+    console.log("signup error", error)
     return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 })
   }
 }   
