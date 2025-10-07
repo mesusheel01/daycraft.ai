@@ -1,8 +1,23 @@
 @import "tailwindcss";
 
+/**
+ * Theme System CSS Variables
+ * 
+ * This file defines CSS variables for both light and dark themes.
+ * The theme is controlled by the data-theme attribute on the html element,
+ * which is managed by the ThemeProvider component.
+ * 
+ * - Light theme is the default (defined in :root)
+ * - Dark theme is applied when data-theme="dark" is set
+ * - The .dark class is added for Tailwind dark mode compatibility
+ * 
+ * Components can use these variables directly with var(--variable-name)
+ * or use Tailwind's dark: variant for dark mode styles.
+ */
+
 @layer base {
   :root {
-    /* Light theme variables */
+    /* Light theme variables - default theme */
     --background: #ffffff;
     --foreground: #171717;
     --color-primary: #2563eb;
@@ -15,15 +30,16 @@
     --color-accent-hover: #059669;
     --color-border: #d1d5db;
     --color-border-hover: #9ca3af;
+    --card-background: rgba(255, 255, 255, 0.8);
+    --card-shadow: rgba(0, 0, 0, 0.1);
 
-    /* Font variables */
-    --font-sans: var(--font-geist-sans);
-    --font-mono: var(--font-geist-mono);
+    /* Font variables - these are set in layout.tsx */
+    --font-sans: system-ui, sans-serif;
+    --font-mono: monospace;
   }
   
-
+  /* Dark theme variables - applied when data-theme="dark" is set on html element */
   [data-theme='dark'] {
-    /* Dark theme variables */
     --background: #0a0a0a;
     --foreground: #ededed;
     --color-primary: #3b82f6;
@@ -34,6 +50,15 @@
     --color-accent-hover: #10b981;
     --color-border: #374151;
     --color-border-hover: #4b5563;
+    --color-btnaccent: #2d3748;
+    --color-btnaccent-hover: #1a202c;
+    --card-background: rgba(17, 24, 39, 0.8);
+    --card-shadow: rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Enable dark mode with Tailwind's dark class when data-theme="dark" is set */
+  .dark {
+    color-scheme: dark;
   }
 
   body {
