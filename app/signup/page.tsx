@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
+import {ThemeToggle} from "@/components/ThemeToggle";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -40,31 +41,38 @@ const Signup = () => {
 
   return (
      <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white/80 border-1 shadow-lg backdrop-blur-lg shadow-xl rounded-2xl p-8 w-full max-w-md">
+         {/* Theme toggle button positioned in the top-right corner */}
+         <div className="absolute top-4 right-4">
+             <ThemeToggle />
+         </div>
+         {/* Card with theme-aware styling using CSS variables */}
+         <div className="border-1 shadow-lg backdrop-blur-lg shadow-xl rounded-2xl p-8 w-full max-w-md"
+              style={{ backgroundColor: 'var(--card-background)', boxShadow: `0 10px 15px -3px var(--card-shadow)` }}>
         <div className="flex flex-col items-center mb-8">
           <h1 className="text-3xl font-semibold text-accent mb-1">DayCraft AI</h1>
-          <p className="text-gray-500 text-center text-sm">
+          <p className="text-foreground/70 text-center text-sm">
             Your AI-powered scheduling assistant.<br />
             Send a prompt, get your day crafted!
           </p>
         </div>
-        <h2 className="text-xl text-black font-semibold  mb-4 text-center">Sign In</h2>
+        <h2 className="text-xl font-semibold mb-4 text-center text-foreground">Sign Up</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-600">Username</label>
-            <input
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              type="text"
-              id="username"
-              name="username"
-              required-j-j
-              className="mt-1 border-b block w-full px-2 text-gray-900 rounded-md  shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              autoComplete="username"
-            />
+            <label htmlFor="username" className="block text-sm font-medium text-foreground/80">Username</label>
+              <input
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  type="text"
+                  id="username"
+                  name="username"
+                  required
+                  className="mt-1 border-b block w-full px-2 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                  style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }}
+                  autoComplete="username"
+              />
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-600">Email</label>
+            <label htmlFor="email" className="block text-sm font-medium text-foreground/80">Email</label>
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -72,12 +80,13 @@ const Signup = () => {
               id="email"
               name="email"
               required
-              className="mt-1 border-b block w-full px-2 text-gray-900 rounded-md  shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-1 border-b block w-full px-2 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }}
               autoComplete="email"
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-600">Password</label>
+            <label htmlFor="password" className="block text-sm font-medium text-foreground/80">Password</label>
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -85,7 +94,8 @@ const Signup = () => {
               id="password"
               name="password"
               required
-              className="mt-1 border-b block w-full px-2 text-gray-900 rounded-md  shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-1 border-b block w-full px-2 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              style={{ backgroundColor: 'var(--background)', color: 'var(--foreground)' }}
               autoComplete="current-password"
             />
           </div>
@@ -99,7 +109,7 @@ const Signup = () => {
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
         </form>
         <div className="mt-6">
-          <p className="text-gray-600 text-sm text-center">
+          <p className="block text-sm font-medium text-foreground/80">
             Already have an account?{" "}
             <Link href="/signin" className="text-accent hover:underline">
               Sign in

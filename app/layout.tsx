@@ -2,6 +2,18 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SessionWrapper } from "@/components/SessionWrapper";
+import { ThemeProvider } from "@/components/ThemeProvider";
+
+/**
+ * Root Layout with Theme Support
+ * 
+ * The application has been enhanced with a theme system:
+ * - ThemeProvider wraps the application to provide theme context
+ * - Supports light and dark modes with seamless switching
+ * - Theme preference is persisted in localStorage
+ * - System color scheme preference is respected on first visit
+ * - All UI components adapt to the current theme using CSS variables
+ */
 
 
 const geistSans = Geist({
@@ -27,11 +39,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <SessionWrapper>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
-        </body>
+        <ThemeProvider>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            {children}
+          </body>
+        </ThemeProvider>
       </SessionWrapper>
     </html>
   );
