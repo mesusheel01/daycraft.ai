@@ -1,6 +1,37 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
+import { Loader } from './Loader';
 
 export const Hero = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(""); 
+  const [prompt, setPrompt] = useState("");
+const [aiResponse, setAiResponse] = useState("");
+
+  const handlePromptClick = async (prompt:string) => { 
+    try {
+      setLoading(true)
+      const response = await fetch('/api/ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt }),
+      });
+
+      if(!response?.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setAiResponse(data);
+      setLoading(false)
+    } catch (error) {
+      setError("Failed to fetch AI response");
+      setLoading(false)
+      console.error("Error fetching AI response:", error);
+    }
+  }
+
   return (
     <div className='flex flex-col min-h-[400px] items-center gap-8 justify-center text-center space-y-6 mt-20'>
         {/* hero-text */}
@@ -12,13 +43,21 @@ export const Hero = () => {
             </div>
         </div>
         {/* hero-AiButton */}
-        <div className=''>
-            <div className='w-[800px] h-[100px] p-6 items-end border-1 gap-1 text-neutral-700 border-neutral-500 rounded-md shadow-md flex'>
-              <input type="text" placeholder='Plan my day...' className='w-full flex-wrap text-wrap p-3 h-[50px] rounded-l-md border hover:border-purple-800 focus:outline-purple-800'/>
+          <div className='w-[400px] h-[80px] md:w-[600] md:h-[80px] lg:w-[800px] ;lg:h-[100px] p-1 border-1 gap-1 text-neutral-700 border-neutral-500 rounded-md shadow-md flex'>
+            <textarea
+            value={prompt} onChange={(e) => setPrompt(e.target.value)} placeholder='Plan my day...' className='w-full bg-purple-50 py-2 flex-wrap text-wrap px-3 h-[70px] rounded-md
+             border hover:border-purple-800 focus:outline-purple-800'/>
 
-              <button className='bg-btn-accent rounded-2xl h-[50px] p-2 text-sm rounded-r-md hover: transition'>Craft My Day</button>
-        </div>
+            <button
+            onClick={()=>handlePromptClick(prompt)}
+            className='h-12 w-20 bg-btn-accent hover:bg-yellow-50 border-1 transition-colors duration-300 rounded-md translate-y-5 text-sm'>{
+              loading ? <Loader />: "Craft My Day" }</button>
+          </div>
+          {
+            aiResponse && <div>
+              <p className='text-md text-neutral-600'>{aiResponse}</p>
+            </div>
+          }
       </div>
-  </div>
   )
 }

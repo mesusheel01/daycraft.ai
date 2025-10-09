@@ -26,7 +26,9 @@ model user {
 
 model task {
   id        Int      @id @default(autoincrement())
-  name      String
+  time      DateTime
+  task      String
+  tips      String?
   completed Boolean  @default(false)
   user      user     @relation(fields: [userId], references: [id])
   userId    Int
