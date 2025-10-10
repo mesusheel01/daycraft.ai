@@ -19,6 +19,7 @@ export const POST = async (request: NextRequest) => {
         return new Response("AI generation failed", { status: 500 });
     }
     const res = await revampTheResponse(aiResponse);
+    
     console.log("AI Generated Response:", res);  
     return new Response(res, { status: 200 });
   } 

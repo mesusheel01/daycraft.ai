@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { Loader } from './Loader';
+import { fetchAiRequest } from '@/request-handler/requests';
 
 export const Hero = () => {
   const [loading, setLoading] = useState(false);
@@ -11,18 +12,7 @@ const [aiResponse, setAiResponse] = useState("");
   const handlePromptClick = async (prompt:string) => { 
     try {
       setLoading(true)
-      const response = await fetch('/api/ai', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt }),
-      });
-
-      if(!response?.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
+      const data = await fetchAiRequest(prompt);
       setAiResponse(data);
       setLoading(false)
     } catch (error) {
