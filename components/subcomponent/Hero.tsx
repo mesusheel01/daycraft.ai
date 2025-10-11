@@ -12,6 +12,7 @@ export const Hero = () => {
   const [error, setError] = useState("");
   const [prompt, setPrompt] = useState("");
   const [aiResponse, setAiResponse] = useState<AiResponseItem[]>([]);
+  const [tipBox, setTipBox] = useState(false);
 
   const handlePromptClick = async (prompt: string) => {
     try {
@@ -78,11 +79,16 @@ export const Hero = () => {
 
       {/* Render AI Response */}
       {aiResponse.length > 0 && (
-        <div className='flex flex-col gap-4 mt-4 w-full max-w-3xl'>
+        <div className='flex bg-purple-50 border-1 rounded-xl p-1 flex-col gap-2 mt-4 w-full h-auto max-w-4xl'>
           {aiResponse.map((item, index) => (
-            <div key={index} className='border p-3 rounded-md bg-purple-50'>
+            <div key={index} className='border p-3 justify-between flex gap-2 rounded-md '>
               <h3 className='font-semibold'>{item.time} - {item.task}</h3>
-              <p className='text-sm text-neutral-700'>{item.tips}</p>
+              <button onClick={() => setTipBox(!tipBox)}>{"->"}</button>
+              {
+                tipBox && <div className='border p-2 rounded-md bg-purple-100'>
+                  <p className='text-sm text-neutral-700'>{item.tips}</p>
+                </div>
+              }
             </div>
           ))}
         </div>

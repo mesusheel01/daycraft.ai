@@ -17,8 +17,8 @@ export const POST = async (request: NextRequest) => {
     }
 
     const resu = await revampTheResponse(aiResponse) || "[]";
-
-    // Parse to object to ensure valid JSON
+    
+    // Parse to object to ensure vali d JSON
     const parsedData = JSON.parse(resu);
     console.log("Parsed AI Response:", parsedData);
     return new Response(JSON.stringify(parsedData), { status: 200, headers: { "Content-Type": "application/json" } });
