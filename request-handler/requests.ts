@@ -14,7 +14,8 @@ export const fetchAiRequest = async (prompt: string) => {
       if(!response?.ok) {
         throw new Error("Network response was not ok");
       }
-      const data = await response.json();
+      const data = await response.text();
+      console.log(data);
       return data;
   } catch (error) {
     console.error("Error fetching AI response:", error);
