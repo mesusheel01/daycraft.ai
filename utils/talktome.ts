@@ -64,6 +64,7 @@ Requirements:
   },
   ...
 ]
+- Include meals exercise and breaks if not mentioned in the prompt by user and set the appropriate time slots according to the activity.
 - Include a maximum of 12 items with efficient tips for each task.
 - Do not include extra text, explanations, or markdown formatting.
           `,

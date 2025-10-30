@@ -56,6 +56,15 @@ export const Hero = () => {
           </p>
         </div>
       </div>
+      {/* demo video section */}
+      <div className="relative aspect-video w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
+        <iframe
+          src="https://www.youtube.com/embed/Dfx44idFQPc?autoplay=1&mute=1&loop=1&playlist=Dfx44idFQPc"
+          title="DayCraft.ai Demo"
+          className="w-full h-full"
+          allowFullScreen
+      ></iframe>
+      </div>
 
       {/* hero-AiButton */}
       <div className='w-[400px] h-[80px] md:w-[600px] md:h-[80px] lg:w-[800px] lg:h-[100px] p-1 border-1 gap-1 text-neutral-700 border-neutral-500 rounded-md shadow-md flex'>
