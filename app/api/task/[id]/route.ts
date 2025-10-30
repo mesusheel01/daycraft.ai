@@ -1,7 +1,11 @@
-import { NextRequest } from "next/server"
+import { NextRequest } from "next/server";
 
-
-export const GET = async (request: NextRequest, { params }: { params: { id: string } }) => {
+export const GET = async (
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) => {
   const { id } = params;
-  return new Response(`Hello, this is the task API endpoint for task ${id}!`)
-}
+  return new Response(`Hello, this is the task API endpoint for task ${id}!`, {
+    status: 200,
+  });
+};
