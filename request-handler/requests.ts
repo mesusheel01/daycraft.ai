@@ -3,7 +3,7 @@
 // ai request
 export const fetchAiRequest = async (prompt: string) => {
   try {
-    const response = await fetch('/api/ai', {
+    const res = await fetch('/api/ai', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -11,11 +11,12 @@ export const fetchAiRequest = async (prompt: string) => {
         body: JSON.stringify({ prompt }),
       });
 
-      if(!response?.ok) {
-        throw new Error("Network response was not ok");
+      if (!res.ok) {
+        throw new Error(`Error: ${res.statusText}`);
       }
-      const data = await response.text();
-      console.log(data);
+
+      const data = await res.json();
+      console.log("AI Response Data:", data);
       return data;
   } catch (error) {
     console.error("Error fetching AI response:", error);
