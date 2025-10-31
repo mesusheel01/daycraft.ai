@@ -106,6 +106,9 @@ const Signup = () => {
             </Link>
           </p>
         </div>
+        {
+          error && <div className="text-red-500 text-sm text-center">{error}</div>
+        }
       </div>
     </div>
   );
