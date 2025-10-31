@@ -29,7 +29,7 @@ const Signin = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white/80 border-1 shadow-lg backdrop-blur-lg shadow-xl rounded-2xl p-8 w-full max-w-md">
+      <div className="bg-white/80 border-1 backdrop-blur-lg shadow-xl rounded-2xl p-8 w-full max-w-md">
         <div className="flex flex-col items-center mb-8">
           <h1 className="text-3xl font-semibold text-accent mb-1">DayCraft AI</h1>
           <p className="text-gray-500 text-center text-sm">
