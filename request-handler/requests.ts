@@ -1,31 +1,3 @@
-
-
-// // ai request
-// export const fetchAiRequest = async (prompt: string) => {
-//   try {
-//     const res = await fetch('/api/ai', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({ prompt }),
-//       });
-
-//       if (!res.ok) {
-//         throw new Error(`Error: ${res.statusText}`);
-//       }
-
-//       const data = await res.json();
-//       console.log("AI Response Data:", data);
-//       return data;
-//       // call post todo to set the current todo to the database too.
-//   } catch (error) {
-//     console.error("Error fetching AI response:", error);
-//     throw error;
-//   }
-// }
-
-
 // ai request
 export const fetchAiRequest = async (prompt: string) => {
   try {
@@ -62,3 +34,68 @@ export const fetchAiRequest = async (prompt: string) => {
   }
 }
   
+// get todos default
+export const getTodos = async () => {
+  try {
+    const res = await fetch('/api/task', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include', // ✅ send session cookie automatically
+    });
+
+    if (!res.ok) {
+      throw new Error(`Error: ${res.statusText}`);
+    }
+
+    const data = await res.json();
+    console.log("Fetched Todos:", data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching todos:", error);
+    throw error;
+  }
+}
+
+//update particular task
+export const updateParticularTask = async (id: number, newTask: string) => {
+  try {
+    const res = await fetch(`/api/task/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ task: newTask }),
+      credentials: 'include', // ✅ send session cookie automatically
+    });
+
+    if (!res.ok) {
+      throw new Error(`Error: ${res.statusText}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error updating particular task:", error);
+    throw error;
+  }
+}
+
+// update mark completed
+export const updateTodo = async (id: number) => {
+  try {
+    const res = await fetch(`/api/task/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include', // ✅ send session cookie automatically
+      body: JSON.stringify({ completed: true }),
+    });
+
+    if (!res.ok) {
+      throw new Error(`Error: ${res.statusText}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error updating todo:", error);
+
+  }
+}
