@@ -59,7 +59,7 @@ export const Hero = () => {
       {/* demo video section */}
       <div className="relative aspect-video w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
         <iframe
-          src="https://www.youtube.com/embed/Dfx44idFQPc?autoplay=1&mute=1&loop=1&playlist=Dfx44idFQPc"
+          src="https://www.youtube.com/embed/Dfx44idFQPc?autoplay=0&mute=1&loop=1&playlist=Dfx44idFQPc"
           title="DayCraft.ai Demo"
           className="w-full h-full"
           allowFullScreen

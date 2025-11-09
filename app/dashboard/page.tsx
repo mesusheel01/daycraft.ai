@@ -4,6 +4,7 @@ import { Loader } from '@/components/subcomponent/Loader';
 import { fetchAiRequest } from '@/request-handler/requests';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useSession } from 'next-auth/react';
 
 type AiResponseItem = {
   username: string;
@@ -18,6 +19,8 @@ const Dashboard = () => {
   const [prompt, setPrompt] = useState('');
   const [aiResponse, setAiResponse] = useState<AiResponseItem[]>([]);
   const [openTip, setOpenTip] = useState<number | null>(null);
+  const { data: session } = useSession();
+  
 
   const handlePromptClick = async (prompt: string) => {
     try {
@@ -106,7 +109,7 @@ const Dashboard = () => {
               Tell me what you’d love to achieve today — I’ll plan your perfect day in seconds.
             </p>
             <p className="text-xs text-red-500">
-              Tip: Include your mood or goals for a smarter plan.
+              Tip: Include your mood or goals for a smarter and personalized plan.
             </p>
           </>
         )}
@@ -126,7 +129,7 @@ const Dashboard = () => {
         />
         <button
           onClick={() => handlePromptClick(prompt)}
-          className="h-[45px] w-[120px] bg-btn-accent text-white font-medium rounded-md transition-all duration-300 flex items-center justify-center"
+          className="h-[45px] w-[120px] bg-btn-accent hover:bg-btn-accent-hover font-medium rounded-md transition-all duration-300 flex items-center justify-center"
         >
           {loading ? <Loader /> : 'Craft My Day'}
         </button>
