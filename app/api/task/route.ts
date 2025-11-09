@@ -3,11 +3,13 @@ import { PrismaClient } from "@/lib/generated/prisma";
 import { aiGenerate, revampTheResponse } from "@/utils/talktome";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
+import { title } from "process";
 
 const pc = new PrismaClient();
 
 interface Task {
-  title: string;
+  time: string;
+  task: string;
   tips?: string;
   completed?: boolean;
 }
@@ -27,8 +29,9 @@ export const GET = async (request: NextRequest) => {
 
 export const POST = async (request: NextRequest) => {
   try {
+    console.log(await getServerSession(authOptions));
     const session = await getServerSession(authOptions);
-
+    console.log(process.env.JWT_SECRET)
     if (!session || !session.user?.id) {
       return new Response("Unauthorized", { status: 401 });
     }
@@ -49,9 +52,10 @@ export const POST = async (request: NextRequest) => {
 
     await pc.task.createMany({
       data: parsedData.map((task: Task) => ({
-        title: task.title,
+        time: task.time,
+        task: task.task,
         tips: task.tips || "",
-        userId,
+        userId: userId,
       })),
       skipDuplicates: true,
     });

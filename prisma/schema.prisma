@@ -26,6 +26,7 @@ model user {
 
 model task {
   id        Int      @id @default(autoincrement())
+  time      String
   task      String
   tips      String?
   completed Boolean  @default(false)
