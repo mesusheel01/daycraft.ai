@@ -1,3 +1,4 @@
 node_modules/
 .next/
-lib/generated/prisma/
+# Ignore generated Prisma files
+lib/generated/**

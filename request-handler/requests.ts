@@ -79,13 +79,13 @@ export const updateParticularTask = async (id: number, newTask: string) => {
 }
 
 // update mark completed
-export const updateTodo = async (id: number) => {
+export const updateTodo = async (id: number, completed: boolean) => {
   try {
     const res = await fetch(`/api/task/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include', // ✅ send session cookie automatically
-      body: JSON.stringify({ completed: true }),
+      body: JSON.stringify({ completed: completed }),
     });
 
     if (!res.ok) {

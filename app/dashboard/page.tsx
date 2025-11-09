@@ -37,9 +37,9 @@ const Dashboard = () => {
     }
   };
 
-  const handleMarkCompleted = async (id: number) => {
+  const handleMarkCompleted = async (id: number, completed: boolean) => {
     try {
-      await updateTodo(id);
+      await updateTodo(id, completed);
       getTodoList(); // refresh without reloading
     } catch (error) {
       console.error('Error marking todo as completed:', error);
@@ -98,7 +98,7 @@ const Dashboard = () => {
                       <input
                         type="checkbox"
                         checked={item.completed}
-                        onChange={() => handleMarkCompleted(item.id)}
+                        onChange={() => handleMarkCompleted(item.id, !item.completed)}
                         className="accent-purple-600 cursor-pointer w-4 h-4"
                       />
                       <div>
