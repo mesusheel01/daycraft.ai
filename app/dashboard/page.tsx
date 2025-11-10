@@ -1,7 +1,6 @@
 'use client';
-
 import { Loader } from '@/components/subcomponent/Loader';
-import { fetchAiRequest, getTodos, updateParticularTask, updateTodo } from '@/request-handler/requests';
+import { deleteTodosAndFetchNew, fetchAiRequest, getTodos, updateParticularTask, updateTodo } from '@/request-handler/requests';
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSession } from 'next-auth/react';
@@ -27,8 +26,15 @@ const Dashboard = () => {
   const handlePromptClick = async (prompt: string) => {
     try {
       setLoading(true);
-      const data = await fetchAiRequest(prompt);
+      let data;
+      if(aiResponse.length > 0){
+         setAiResponse([]);
+         data = await deleteTodosAndFetchNew(prompt);
+      }else{
+         data = await fetchAiRequest(prompt);
+      }
       setAiResponse(data);
+      setPrompt('');
     } catch (error) {
       console.error('Fetch failed:', error);
       setError('Failed to fetch AI response');

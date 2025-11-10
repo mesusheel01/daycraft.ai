@@ -99,3 +99,28 @@ export const updateTodo = async (id: number, completed: boolean) => {
 
   }
 }
+
+
+// delete todos and fetch new
+export const deleteTodosAndFetchNew = async (prompt: string) => {
+  try {
+    // DELETE request to remove all todos
+    const deleteRes = await fetch('/api/task', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include', // ✅ send session cookie automatically
+    });
+
+    if (!deleteRes.ok) {
+      throw new Error(`Error: ${deleteRes.statusText}`);
+    }
+
+    // After deletion, fetch new AI response
+    const aiData = await fetchAiRequest(prompt);
+    return aiData;
+
+  } catch (error) {
+    console.error("Error deleting todos and fetching new:", error);
+    throw error;
+  }
+}

@@ -3,7 +3,6 @@ import { PrismaClient } from "@/lib/generated/prisma";
 import { aiGenerate, revampTheResponse } from "@/utils/talktome";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
-import { title } from "process";
 
 const pc = new PrismaClient();
 
@@ -74,4 +73,25 @@ export const POST = async (request: NextRequest) => {
 };
 
 
-//update particular task
+//delete all the task
+export const DELETE = async (
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) => {
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user?.id) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
+  const userId = Number(session.user.id);
+
+  try {
+    const deletedTask = await pc.task.deleteMany({
+      where: { userId },
+    });
+    return new Response(JSON.stringify(deletedTask), { status: 200 });
+  } catch (error) {
+    console.error("Error deleting tasks:", error);
+    return new Response("Internal Server Error", { status: 500 });
+  } 
+}
