@@ -215,7 +215,6 @@ const Dashboard = () => {
         <textarea
           value={prompt}
           onChange={(e) => {
-            setAiResponse([]);
             setError('');
             setPrompt(e.target.value);
           }}
