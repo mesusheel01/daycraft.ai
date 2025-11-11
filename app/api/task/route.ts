@@ -76,7 +76,6 @@ export const POST = async (request: NextRequest) => {
 //delete all the task
 export const DELETE = async (
   request: NextRequest,
-  context: { params: Promise<{ id: string }> }
 ) => {
   const session = await getServerSession(authOptions);
   if (!session || !session.user?.id) {
