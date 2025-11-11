@@ -1,9 +1,10 @@
 'use client';
 import { Loader } from '@/components/subcomponent/Loader';
-import { deleteTodosAndFetchNew, fetchAiRequest, getTodos, updateParticularTask, updateTodo } from '@/request-handler/requests';
+import { clearAllTodos, deleteTodosAndFetchNew, fetchAiRequest, getTodos, updateParticularTask, updateTodo } from '@/request-handler/requests';
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSession } from 'next-auth/react';
+import { signOut } from "next-auth/react"
 
 type AiResponseItem = {
   id: number;
@@ -52,6 +53,20 @@ const Dashboard = () => {
     }
   };
 
+  const handleClearClick = () => async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      setAiResponse([]);
+      const deleteAll = await clearAllTodos();
+      if(deleteAll){
+        console.log('All todos cleared');
+      }
+      window.location.reload()
+    } catch (error) {
+      console.error('Error clearing todos:', error);
+    }
+  }
+
   const handleUpdateTask = (id:number) => async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const inputElement = (e.target as HTMLElement).previousElementSibling as HTMLInputElement;
@@ -84,12 +99,17 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col min-h-screen mb-24 items-center justify-between text-center px-4 py-6">
       <div className="flex flex-col items-center w-full max-w-[750px] gap-4 overflow-y-auto flex-1">
+        
         {aiResponse.length > 0 ? (
           <>
+          <div className="w-full flex justify-between items-center mb-4">
             <h2 className="text-2xl font-semibold text-purple-600 mb-2">
               🌞 Your Personalized Day Plan
             </h2>
-
+            <div>
+                <button onClick={handleClearClick()} className="text-sm text-neutral-700 mr-4">Clear</button>
+            </div>
+          </div>
             {aiResponse.map((item, index) => (
               <motion.div
                 key={item.id}

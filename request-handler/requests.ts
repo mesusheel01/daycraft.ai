@@ -124,3 +124,22 @@ export const deleteTodosAndFetchNew = async (prompt: string) => {
     throw error;
   }
 }
+
+// clear all todos
+export const clearAllTodos = async () => {
+  try {
+    const deleteRes = await fetch('/api/task', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include', // ✅ send session cookie automatically
+    });
+
+    if (!deleteRes.ok) {
+      throw new Error(`Error: ${deleteRes.statusText}`);
+    }
+    return true;
+  } catch (error) {
+    console.error("Error clearing all todos:", error);
+    throw error;
+  }
+}
