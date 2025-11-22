@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSession } from 'next-auth/react';
 import { signOut } from "next-auth/react"
+import { useRouter } from 'next/navigation';
 
 type AiResponseItem = {
   id: number;
@@ -22,17 +23,54 @@ const Dashboard = () => {
   const [prompt, setPrompt] = useState('');
   const [aiResponse, setAiResponse] = useState<AiResponseItem[]>([]);
   const [openTip, setOpenTip] = useState<number | null>(null);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
+  const getTodoList = async () => {
+    try {
+      const res = await getTodos();
+      const todos = Array.isArray(res) ? res : [];
+      const sortedAsc = todos.sort((a, b) => Number(a.id) - Number(b.id));
+      setAiResponse(sortedAsc);
+    } catch (error) {
+      console.error('Error fetching todo list:', error);
+      setError('Failed to load todos');
+    }
+  };
+
+
+
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/');
+    }
+  }, [status, router]);
+
+  useEffect(() => {
+    getTodoList();
+  }, []);
+
+  if (status === 'loading') {
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (!session) {
+    return null;
+  }
+  console.log(session, status)
   const handlePromptClick = async (prompt: string) => {
     try {
       setLoading(true);
       let data;
-      if(aiResponse.length > 0){
-         setAiResponse([]);
-         data = await deleteTodosAndFetchNew(prompt);
-      }else{
-         data = await fetchAiRequest(prompt);
+      if (aiResponse.length > 0) {
+        setAiResponse([]);
+        data = await deleteTodosAndFetchNew(prompt);
+      } else {
+        data = await fetchAiRequest(prompt);
       }
       setAiResponse(data);
       setPrompt('');
@@ -58,7 +96,7 @@ const Dashboard = () => {
     try {
       setAiResponse([]);
       const deleteAll = await clearAllTodos();
-      if(deleteAll){
+      if (deleteAll) {
         console.log('All todos cleared');
       }
       window.location.reload()
@@ -67,7 +105,7 @@ const Dashboard = () => {
     }
   }
 
-  const handleUpdateTask = (id:number) => async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleUpdateTask = (id: number) => async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const inputElement = (e.target as HTMLElement).previousElementSibling as HTMLInputElement;
     const newTask = inputElement.value;
@@ -80,36 +118,22 @@ const Dashboard = () => {
     }
   }
 
-  const getTodoList = async () => {
-    try {
-      const res = await getTodos();
-      const todos = Array.isArray(res) ? res : [];
-      const sortedAsc = todos.sort((a, b) => Number(a.id) - Number(b.id));
-      setAiResponse(sortedAsc);
-    } catch (error) {
-      console.error('Error fetching todo list:', error);
-      setError('Failed to load todos');
-    }
-  };
 
-  useEffect(() => {
-    getTodoList();
-  }, []);
 
   return (
     <div className="flex flex-col min-h-screen mb-24 items-center justify-between text-center px-4 py-6">
       <div className="flex flex-col items-center w-full max-w-[750px] gap-4 overflow-y-auto flex-1">
-        
+
         {aiResponse.length > 0 ? (
           <>
-          <div className="w-full flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-semibold text-purple-600 mb-2">
-              🌞 Your Personalized Day Plan
-            </h2>
-            <div>
+            <div className="w-full flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-semibold text-purple-600 mb-2">
+                🌞 Your Personalized Day Plan
+              </h2>
+              <div>
                 <button onClick={handleClearClick()} className="text-sm text-neutral-700 mr-4">Clear</button>
+              </div>
             </div>
-          </div>
             {aiResponse.map((item, index) => (
               <motion.div
                 key={item.id}
@@ -186,9 +210,9 @@ const Dashboard = () => {
                           defaultValue={item.task}
                           className="border border-neutral-300 rounded-md px-2 py-1 text-sm w-full focus:outline-purple-500"
                         />
-                        <button 
-                        onClick={handleUpdateTask(item.id)}
-                        className="px-3 py-1 bg-purple-600 text-white rounded-md text-sm hover:bg-purple-700 transition">
+                        <button
+                          onClick={handleUpdateTask(item.id)}
+                          className="px-3 py-1 bg-purple-600 text-white rounded-md text-sm hover:bg-purple-700 transition">
                           Save
                         </button>
                       </motion.div>
@@ -217,9 +241,12 @@ const Dashboard = () => {
           </>
         ) : (
           <>
-            <h1 className="text-3xl font-semibold">
-              Hi <span className="text-purple-500">Susheel✨</span>
-            </h1>
+            <div className="flex items-center justify-between gap-20">
+              <h1 className="text-3xl font-semibold">
+                Hi <span className="text-purple-500">Susheel✨</span>
+              </h1>
+              <button className='text-xs text-red-500 mt-4 hover:text-red-700 transition' onClick={() => signOut()}>Signout</button>
+            </div>
             <p className="text-base text-neutral-600 max-w-[500px]">
               Tell me what you’d love to achieve today — I’ll plan your perfect day in seconds.
             </p>
