@@ -39,6 +39,9 @@ export const Hero = () => {
       setLoading(false);
     }
   };
+  if (aiResponse.length > 0) {
+    setPrompt("")
+  }
 
   return (
     <div className='flex flex-col min-h-[400px] items-center gap-8 justify-center text-center space-y-6 mt-20'>
@@ -63,7 +66,7 @@ export const Hero = () => {
           title="DayCraft.ai Demo"
           className="w-full h-full"
           allowFullScreen
-      ></iframe>
+        ></iframe>
       </div>
 
       {/* hero-AiButton */}
@@ -73,7 +76,8 @@ export const Hero = () => {
           onChange={(e) => {
             setAiResponse([])
             setError("")
-            setPrompt(e.target.value)}
+            setPrompt(e.target.value)
+          }
           }
           placeholder='Plan my day...'
           className='w-full bg-purple-50 py-2 px-3 h-[70px] rounded-md border hover:border-purple-800 focus:outline-purple-800'
@@ -89,6 +93,7 @@ export const Hero = () => {
       {/* Render AI Response */}
       {aiResponse.length > 0 && (
         <div className='flex bg-purple-50 border-1 rounded-xl p-1 flex-col gap-2 mt-4 w-full h-auto max-w-4xl'>
+          <h1 className='text-xs text-neutral-500'>This is just for demo purpose and you will see the actual appearance after logging in!</h1>
           {aiResponse.map((item, index) => (
             <div key={index} className='border p-3 justify-between flex gap-2 rounded-md '>
               <h3 className='font-semibold'>{item.time} - {item.task}</h3>
