@@ -27,7 +27,7 @@ const Signup = () => {
       console.log("after fetch", res)
       if (res.ok) {
         // Redirect to sign-in page after successful signup
-        router.push("/dashboard");
+        router.push("/signin");
       } else {
         const data = await res.json();
         console.log(data)
@@ -35,11 +35,11 @@ const Signup = () => {
       }
     } catch (error) {
       setError("Something went wrong!");
-    } 
+    }
   };
 
   return (
-     <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center">
       <div className="bg-white/80 border-1 shadow-lg backdrop-blur-lg shadow-xl rounded-2xl p-8 w-full max-w-md">
         <div className="flex flex-col items-center mb-8">
           <h1 className="text-3xl font-semibold text-accent mb-1">DayCraft AI</h1>

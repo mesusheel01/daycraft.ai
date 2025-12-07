@@ -25,6 +25,7 @@ const Dashboard = () => {
   const [openTip, setOpenTip] = useState<number | null>(null);
   const { data: session, status } = useSession();
   const router = useRouter();
+  const user = session?.user;
 
   const getTodoList = async () => {
     try {
@@ -49,7 +50,7 @@ const Dashboard = () => {
   useEffect(() => {
     getTodoList();
   }, []);
-
+  console.log(user)
   if (status === 'loading') {
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -243,7 +244,7 @@ const Dashboard = () => {
           <>
             <div className="flex items-center justify-between gap-20">
               <h1 className="text-3xl font-semibold">
-                Hi <span className="text-purple-500">Susheel✨</span>
+                Hi <span className="text-purple-500">{user?.name}✨</span>
               </h1>
               <button className='text-xs text-red-500 mt-4 hover:text-red-700 transition' onClick={() => signOut()}>Signout</button>
             </div>
