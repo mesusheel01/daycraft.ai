@@ -92,5 +92,5 @@ export const DELETE = async (
   } catch (error) {
     console.error("Error deleting tasks:", error);
     return new Response("Internal Server Error", { status: 500 });
-  } 
+  }
 }

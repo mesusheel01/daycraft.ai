@@ -32,7 +32,7 @@ export const authOptions: NextAuthOptions = {
 
         const isPasswordValid = await bcrypt.compare(
           credentials.password,
-          user.password
+          user.password!
         )
 
         if (!isPasswordValid) {
@@ -63,9 +63,39 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt"
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async signIn({ user, account, profile }) {
+      if (account?.provider === "github" || account?.provider === "google") {
+        // Check if user already exists
+        const existingUser = await prisma.user.findUnique({
+          where: { email: user.email! },
+        });
+
+        if (!existingUser) {
+          // Save new OAuth user
+          await prisma.user.create({
+            data: {
+              username: user.name!,
+              email: user.email!,
+              // For OAuth users, password can be null
+            },
+          });
+        }
+      }
+
+      return true;
+    },
+    async jwt({ token, user, account }) {
       if (user) {
-        token.id = user.id
+        if (account?.provider === "github" || account?.provider === "google") {
+          const dbUser = await prisma.user.findUnique({
+            where: { email: user.email! },
+          });
+          if (dbUser) {
+            token.id = dbUser.id.toString();
+          }
+        } else {
+          token.id = user.id
+        }
       }
       return token
     },
