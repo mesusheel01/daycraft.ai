@@ -59,10 +59,6 @@ const Dashboard = () => {
     );
   }
 
-  if (!session) {
-    return null;
-  }
-  console.log(session, status)
   const handlePromptClick = async (prompt: string) => {
     try {
       setLoading(true);
