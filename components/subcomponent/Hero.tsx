@@ -48,7 +48,7 @@ export const Hero = () => {
       {/* hero-text */}
       <div className='flex flex-col gap-4'>
         <h1 className='text-3xl md:text-4xl lg:text-5xl'>
-          Plan your day with DayCraft.<span className='text-purple-700'>ai</span>
+          Plan your day with DayCraft.<span className='text-popover-foreground'>ai</span>
         </h1>
         <div className='flex mx-3 gap-2 flex-col'>
           <p className='text-sm md:text-md lg:text-lg text-secondary-foreground'>
@@ -70,7 +70,7 @@ export const Hero = () => {
       </div>
 
       {/* hero-AiButton */}
-      <div className='flex items-center justify-center w-[350px] h-[80px] md:w-[600px] md:h-[80px] lg:w-[800px] lg:h-[100px] p-1 border-1 gap-1 text-neutral-700 border-neutral-500 rounded-md shadow-md'>
+      <div className='flex items-center justify-center w-[350px] h-[80px] md:w-[600px] md:h-[80px] lg:w-[800px] lg:h-[100px] p-1 border-1 gap-1  border-border rounded-md shadow-md'>
         <textarea
           value={prompt}
           onChange={(e) => {
