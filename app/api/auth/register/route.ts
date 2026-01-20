@@ -1,12 +1,12 @@
 
 import bcrypt from "bcryptjs"
-import { PrismaClient } from "@/lib/generated/prisma";
+import prisma from "@/lib/prisma";
 
-const pc = new PrismaClient()
+const pc = prisma;
 
 export const POST = async (req: Request) => {
   try {
-    const { username,email, password } = await req.json()
+    const { username, email, password } = await req.json()
 
     // Here, you would typically add code to save the user to your database.
     // For demonstration purposes, we'll just return the received data.
@@ -16,7 +16,7 @@ export const POST = async (req: Request) => {
     }
 
     // Simulate user creation
-    const existingUser =  await pc.user.findUnique({ where: { email } });
+    const existingUser = await pc.user.findUnique({ where: { email } });
     if (existingUser) {
       return new Response(JSON.stringify({ error: "User already exists" }), { status: 400 })
     }

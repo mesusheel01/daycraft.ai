@@ -1,11 +1,10 @@
 import { NextRequest } from "next/server";
-import { PrismaClient } from "@/lib/generated/prisma";
-import { aiGenerate, revampTheResponse } from "@/utils/talktome";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import { aiGenerate, revampTheResponse } from "@/utils/talktome";
+import prisma from "@/lib/prisma";
 
-
-const pc = new PrismaClient();
+const pc = prisma;
 
 interface Task {
   time: string;

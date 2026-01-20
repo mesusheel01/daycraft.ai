@@ -13,7 +13,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="h-24 bg-white dark:bg-black border-b shadow-lg rounded-2xl border-b-gray-200 flex flex-wrap md:flex-nowrap items-center justify-between px-4">
+    <nav className="h-24 text-foreground bg-background  border-b shadow-lg rounded-2xl flex items-center justify-between px-4">
       {/* left section */}
       <div className='text-2xl mx-8'>
         <button onClick={toggleTheme} className="border p-2 bg-black text-white dark:bg-white dark:text-black" >switch</button>
