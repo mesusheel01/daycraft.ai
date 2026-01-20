@@ -1,7 +1,8 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Loader } from './Loader';
 import { FaBrain } from 'react-icons/fa';
+import { useNight } from '@/store/nightStore';
 
 
 type AiResponseItem = {
@@ -15,6 +16,8 @@ export const Hero = () => {
   const [prompt, setPrompt] = useState("");
   const [aiResponse, setAiResponse] = useState<AiResponseItem[]>([]);
   const [tipBox, setTipBox] = useState(false);
+  const { isNight, setIsNight } = useNight()
+
 
   const handlePromptClick = async (prompt: string) => {
     try {
@@ -24,7 +27,8 @@ export const Hero = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({ prompt, isNight }),
+
       });
 
       if (!res.ok) {
@@ -35,6 +39,8 @@ export const Hero = () => {
       console.log("AI Response Data:", data);
       setAiResponse(data);
       setPrompt("");
+      // if the hit was for night.
+      if (isNight === true) setIsNight()
     } catch (error) {
       console.error("Fetch failed:", error);
       setError("Failed to fetch AI response");

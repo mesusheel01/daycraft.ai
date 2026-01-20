@@ -4,13 +4,13 @@ import { SignButton } from "./Button"
 import { useRouter } from "next/navigation"
 import { motion } from 'motion/react'
 import { FaCloudMoon, FaCloudSun } from "react-icons/fa";
-
+import { useNight } from "@/store/nightStore";
 
 
 export const Navbar = () => {
   const { theme, toggleTheme } = useTheme()
+  const { setIsNight } = useNight()
   const router = useRouter();
-
 
   const handleButtonClick = (path: string) => {
     router.push(`/${path}`);
@@ -30,7 +30,11 @@ export const Navbar = () => {
         >
           {theme === 'light' ? <FaCloudSun className="text-chart-4" size={20} /> : <FaCloudMoon size={20} className="text-chart-4" />}
         </motion.button>
-        <button onClick={toggleTheme}>
+        <button onClick={() => {
+          toggleTheme()
+          setIsNight()
+        }
+        }>
           &nbsp;{theme === 'light' ? "Day" : " Night"}
         </button>
         Craft.<span className=''>ai</span>

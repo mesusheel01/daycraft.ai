@@ -6,7 +6,12 @@ const endpoint = "https://models.github.ai/inference";
 const model = "gpt-4o-mini";
 
 // ---------- 1️⃣ Generate Daily Schedule ----------
-export async function aiGenerate(prompt: string) {
+export async function aiGenerate(prompt: string, isNight: boolean) {
+  const d = new Date()
+  const currentHour = d.getHours()
+  console.log(isNight)
+  const timeRange = isNight ? `from now (${currentHour}:00 ) until 6:00 AM tomorrow` : "across the day"
+
   const client = ModelClient(endpoint, new AzureKeyCredential(token));
 
   const response = await client.path("/chat/completions").post({
@@ -21,7 +26,7 @@ realistic, and balanced daily schedule based on the user's input tasks.
 
 Guidelines:
 - Include between **10 to 12 total todos**.
-- Spread tasks across the day with realistic time slots (e.g., "7:00 AM - 8:00 AM", "2:30 PM - 3:00 PM").
+- Spread tasks ${timeRange} with realistic time slots (e.g., "7:00 AM - 8:00 AM", "2:30 PM - 3:00 PM").
 - Prioritize focus sessions, breaks, meals, and short relaxation time.
 - Optimize for productivity and well-being.
 - Use natural times and avoid overlapping schedules.
@@ -39,6 +44,7 @@ Guidelines:
   console.log("Raw AI Response:", response.body.choices[0].message.content);
   return response.body.choices[0].message.content;
 }
+
 
 // ---------- 2️⃣ Revamp Response to Structured JSON ----------
 export const revampTheResponse = async (response: string) => {
