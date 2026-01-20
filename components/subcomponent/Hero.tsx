@@ -34,6 +34,7 @@ export const Hero = () => {
       const data = await res.json();
       console.log("AI Response Data:", data);
       setAiResponse(data);
+      setPrompt("");
     } catch (error) {
       console.error("Fetch failed:", error);
       setError("Failed to fetch AI response");
@@ -41,22 +42,19 @@ export const Hero = () => {
       setLoading(false);
     }
   };
-  if (aiResponse.length > 0) {
-    setPrompt("")
-  }
 
   return (
     <div className='flex flex-col min-h-[400px] items-center gap-8 justify-center text-center space-y-6 mt-20'>
       {/* hero-text */}
-      <div className='flex flex-col gap-3'>
+      <div className='flex flex-col gap-4'>
         <h1 className='text-3xl md:text-4xl lg:text-5xl'>
-          Plan your day with DayCraft.<span className='text-purple-600'>ai</span>
+          Plan your day with DayCraft.<span className='text-purple-700'>ai</span>
         </h1>
-        <div className='flex flex-col'>
-          <p className='text-sm md:text-md lg:text-lg text-neutral-600'>
+        <div className='flex mx-3 gap-2 flex-col'>
+          <p className='text-sm md:text-md lg:text-lg text-secondary-foreground'>
             Your AI-powered scheduling assistant. Send a prompt, get your day crafted!
           </p>
-          <p className='text-xs md:text-sm lg:text-md text-neutral-500'>
+          <p className='text-xs md:text-sm lg:text-md text-tertiary'>
             Sign up today and take the first step towards a more organized and productive life
           </p>
         </div>
@@ -82,7 +80,7 @@ export const Hero = () => {
           }
           }
           placeholder='Plan my day...'
-          className='w-full bg-muted-foreground text-background py-2 px-3 rounded-md border '
+          className='w-full  bg-muted text-black dark:text-white py-2 px-3 rounded-md border border-border'
         />
         <button
           onClick={() => handlePromptClick(prompt)}
@@ -94,7 +92,7 @@ export const Hero = () => {
 
       {/* Render AI Response */}
       {aiResponse.length > 0 && (
-        <div className='flex bg-purple-50 border-1 rounded-xl p-1 flex-col gap-2 mt-4 w-full h-auto max-w-4xl'>
+        <div className='flex bg-background text-foreground border-1 rounded-xl p-1 flex-col text-[10px] sm:text-base gap-2 m-4 w-full h-auto max-w-4xl'>
           <h1 className='text-xs text-neutral-500'>This is just for demo purpose and you will see the actual appearance after logging in!</h1>
           {aiResponse.map((item, index) => (
             <div key={index} className='border p-3 justify-between flex gap-2 rounded-md '>
