@@ -1,9 +1,10 @@
 'use client'
 import { useTheme } from "@/theme/ThemeProvider";
-import { Button } from "./Button"
+import { SignButton } from "./Button"
 import { useRouter } from "next/navigation"
 import { motion } from 'motion/react'
-import { Moon, Sun } from "geist-icons";
+import { FaCloudMoon, FaCloudSun } from "react-icons/fa";
+
 
 
 export const Navbar = () => {
@@ -18,7 +19,7 @@ export const Navbar = () => {
   return (
     <nav className="h-20  bg-background border-b border-border  shadow-lg rounded-2xl flex items-center justify-between">
       {/* left section */}
-      <div className='text-lg  md:text-2xl font-sans flex items-center mx-8 md:mx-20'>
+      <div className='text-md  md:text-2xl font-sans flex items-center mx-8 md:mx-20'>
         <motion.button
           initial={{ opacity: 0, scale: 0.8, rotateY: -20 }}
           animate={{ opacity: 1, scale: 1, rotateY: 0 }}
@@ -27,7 +28,7 @@ export const Navbar = () => {
           onClick={toggleTheme}
 
         >
-          {theme === 'light' ? <Sun className="text-chart-4" size={15} /> : <Moon size={15} className="text-chart-4" />}
+          {theme === 'light' ? <FaCloudSun className="text-chart-4" size={20} /> : <FaCloudMoon size={20} className="text-chart-4" />}
         </motion.button>
         <button onClick={toggleTheme}>
           &nbsp;{theme === 'light' ? "Day" : " Night"}
@@ -36,9 +37,9 @@ export const Navbar = () => {
       </div>
 
       {/* right section */}
-      <div className="mr-0 md:mr-10">
-        <Button text='Sign In' onClick={() => handleButtonClick("signin")} />
-        <Button text='Sign Up' onClick={() => handleButtonClick("signup")} />
+      <div className="mr-0 md:mr-15">
+        <SignButton text='Sign In' onClick={() => handleButtonClick("signin")} />
+        <SignButton text='Sign Up' onClick={() => handleButtonClick("signup")} />
       </div>
     </nav>
   );

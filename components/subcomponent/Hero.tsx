@@ -1,6 +1,8 @@
 'use client'
 import React, { useState } from 'react';
 import { Loader } from './Loader';
+import { FaBrain } from 'react-icons/fa';
+
 
 type AiResponseItem = {
   time: string;
@@ -60,7 +62,7 @@ export const Hero = () => {
         </div>
       </div>
       {/* demo video section */}
-      <div className="relative aspect-video w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
+      <div className="relative aspect-video w-[330px] md:w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
         <iframe
           src="https://www.youtube.com/embed/Al3UOokRSIM?autoplay=0&mute=0&loop=1&playlist=Al3UOokRSIM"
           title="DayCraft.ai Demo"
@@ -70,7 +72,7 @@ export const Hero = () => {
       </div>
 
       {/* hero-AiButton */}
-      <div className='w-[400px] h-[80px] md:w-[600px] md:h-[80px] lg:w-[800px] lg:h-[100px] p-1 border-1 gap-1 text-neutral-700 border-neutral-500 rounded-md shadow-md flex'>
+      <div className='flex items-center justify-center w-[350px] h-[80px] md:w-[600px] md:h-[80px] lg:w-[800px] lg:h-[100px] p-1 border-1 gap-1 text-neutral-700 border-neutral-500 rounded-md shadow-md'>
         <textarea
           value={prompt}
           onChange={(e) => {
@@ -80,13 +82,13 @@ export const Hero = () => {
           }
           }
           placeholder='Plan my day...'
-          className='w-full bg-purple-50 py-2 px-3 h-[70px] rounded-md border hover:border-purple-800 focus:outline-purple-800'
+          className='w-full bg-muted-foreground text-background py-2 px-3 rounded-md border '
         />
         <button
           onClick={() => handlePromptClick(prompt)}
-          className='h-12 w-28 bg-btn-accent hover:bg-yellow-50 border-1 transition-colors duration-300 rounded-md translate-y-5 text-sm'
+          className='h-12 w-12  bg-secondary text-chart-2 hover:bg-muted flex items-center justify-center border-1 transition-colors duration-300 rounded-md text-sm'
         >
-          {loading ? <Loader /> : "Craft My Day"}
+          {loading ? <Loader /> : <FaBrain size={18} />}
         </button>
       </div>
 
