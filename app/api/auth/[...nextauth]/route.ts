@@ -2,9 +2,8 @@ import NextAuth, { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
-import { PrismaClient } from "../../../../lib/generated/prisma"
-
 import bcrypt from "bcryptjs"
+import { PrismaClient } from "../../../../lib/generated/prisma"
 
 
 const prisma = new PrismaClient()

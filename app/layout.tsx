@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SessionWrapper } from "@/components/SessionWrapper";
+import { ThemeProvider } from "@/theme/ThemeProvider";
 
 
 const geistSans = Geist({
@@ -26,13 +27,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <SessionWrapper>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
-        </body>
-      </SessionWrapper>
+      <ThemeProvider>
+        <SessionWrapper>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased bg-(--background) text-(--foreground) transition-colors duration-300`}
+          >
+            {children}
+          </body>
+        </SessionWrapper>
+      </ThemeProvider>
     </html>
   );
 }

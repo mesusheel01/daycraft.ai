@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@variant dark (&:is(.dark, .dark *));
+
 
 @layer base {
   :root {
@@ -20,9 +22,9 @@
     --font-sans: var(--font-geist-sans);
     --font-mono: var(--font-geist-mono);
   }
-  
 
-  [data-theme='dark'] {
+
+  .dark {
     /* Dark theme variables */
     --background: #0a0a0a;
     --foreground: #ededed;
@@ -47,16 +49,20 @@
   .bg-btn-accent {
     background-color: var(--color-btnaccent);
   }
+
   .hover\:bg-btn-accent-hover:hover {
     background-color: var(--color-btnaccent-hover);
   }
+
   .text-btn-accent {
     color: var(--color-btnaccent);
   }
-  .text-accent{
+
+  .text-accent {
     color: var(--color-accent);
   }
-  .bg-accent{
+
+  .bg-accent {
     background-color: var(--color-accent);
   }
 }
