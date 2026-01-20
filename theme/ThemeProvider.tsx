@@ -23,7 +23,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         } else {
             document.documentElement.classList.remove('dark')
         }
-        localStorage.removeItem('theme')
+        localStorage.setItem('theme', theme)
     }, [theme])
 
     const toggleTheme = () => {
