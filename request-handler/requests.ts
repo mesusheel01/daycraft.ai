@@ -102,7 +102,7 @@ export const updateTodo = async (id: number, completed: boolean) => {
 
 
 // delete todos and fetch new
-export const deleteTodosAndFetchNew = async (prompt: string) => {
+export const deleteTodosAndFetchNew = async (prompt: string, isNight: boolean) => {
   try {
     // DELETE request to remove all todos
     const deleteRes = await fetch('/api/task', {
@@ -116,7 +116,7 @@ export const deleteTodosAndFetchNew = async (prompt: string) => {
     }
 
     // After deletion, fetch new AI response
-    const aiData = await fetchAiRequest(prompt);
+    const aiData = await fetchAiRequest(prompt, isNight);
     return aiData;
 
   } catch (error) {

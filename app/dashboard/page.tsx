@@ -67,7 +67,7 @@ const Dashboard = () => {
       let data;
       if (aiResponse.length > 0) {
         setAiResponse([]);
-        data = await deleteTodosAndFetchNew(prompt);
+        data = await deleteTodosAndFetchNew(prompt, isNight);
       } else {
         data = await fetchAiRequest(prompt, isNight);
       }
