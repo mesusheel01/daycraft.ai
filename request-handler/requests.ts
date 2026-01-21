@@ -1,12 +1,12 @@
 // ai request
-export const fetchAiRequest = async (prompt: string) => {
+export const fetchAiRequest = async (prompt: string, isNight: boolean) => {
   try {
     // POST request
     const res = await fetch('/api/task', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }, // ✅ do NOT add cookie manually
       credentials: 'include', // ✅ send session cookie automatically
-      body: JSON.stringify({ prompt }),
+      body: JSON.stringify({ prompt, isNight }),
     });
 
     if (!res.ok) {
@@ -33,7 +33,7 @@ export const fetchAiRequest = async (prompt: string) => {
     throw error;
   }
 }
-  
+
 // get todos default
 export const getTodos = async () => {
   try {

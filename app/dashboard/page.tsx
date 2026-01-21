@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useSession } from 'next-auth/react';
 import { signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation';
+import { useNight } from '@/store/nightStore';
 
 type AiResponseItem = {
   id: number;
@@ -21,6 +22,7 @@ const Dashboard = () => {
   const [error, setError] = useState('');
   const [editTodo, setEditTodo] = useState<number | null>(null);
   const [prompt, setPrompt] = useState('');
+  const { isNight } = useNight()
   const [aiResponse, setAiResponse] = useState<AiResponseItem[]>([]);
   const [openTip, setOpenTip] = useState<number | null>(null);
   const { data: session, status } = useSession();
@@ -67,7 +69,7 @@ const Dashboard = () => {
         setAiResponse([]);
         data = await deleteTodosAndFetchNew(prompt);
       } else {
-        data = await fetchAiRequest(prompt);
+        data = await fetchAiRequest(prompt, isNight);
       }
       setAiResponse(data);
       setPrompt('');

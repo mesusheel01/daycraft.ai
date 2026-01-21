@@ -37,7 +37,7 @@ export const POST = async (request: NextRequest) => {
 
     const userId = Number(session.user.id);
 
-    const { prompt } = await request.json();
+    const { prompt, isNight } = await request.json();
     if (!prompt) {
       return new Response(
         JSON.stringify({ error: "No prompt provided" }),
@@ -45,7 +45,7 @@ export const POST = async (request: NextRequest) => {
       );
     }
 
-    const aiResponse = await aiGenerate(prompt);
+    const aiResponse = await aiGenerate(prompt, isNight);
     const formatted = await revampTheResponse(aiResponse || "[]");
     const parsedData = JSON.parse(formatted as string);
 
