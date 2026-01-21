@@ -76,25 +76,25 @@ export const Hero = () => {
       </div>
 
       {/* hero-AiButton */}
-      <div className='flex items-center justify-center w-[350px] h-[80px] md:w-[600px] md:h-[80px] lg:w-[800px] lg:h-[100px] p-1 border-1 gap-1  border-border rounded-md shadow-md'>
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[95%] max-w-[750px] bg-white/10 dark:bg-black/10 backdrop-blur-md border border-neutral-300/50 dark:border-white/10 rounded-2xl shadow-xl flex items-center gap-3 p-2 group transition-all duration-300 hover:border-purple-500/30">
         <textarea
           value={prompt}
           onChange={(e) => {
             setAiResponse([])
             setError("")
             setPrompt(e.target.value)
-          }
-          }
-          placeholder='Plan my day...'
-          className='w-full  bg-muted text-black dark:text-white py-2 px-3 rounded-md border border-border'
+          }}
+          placeholder="Plan my day..."
+          className="flex-1 resize-none bg-secondary/50 dark:bg-neutral-900/50 backdrop-blur-sm py-3 px-4 h-[60px] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 text-foreground transition-all duration-300 placeholder:text-neutral-500"
         />
         <button
           onClick={() => handlePromptClick(prompt)}
-          className='h-12 w-12  bg-secondary text-chart-2 hover:bg-muted flex items-center justify-center border-1 transition-colors duration-300 rounded-md text-sm'
+          className="h-12 w-12 bg-gradient-to-tr from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-500/20 flex items-center justify-center transition-all duration-300 rounded-xl hover:scale-105 active:scale-95 group-hover:shadow-purple-500/40"
         >
-          {loading ? <Loader /> : <FaBrain size={18} />}
+          {loading ? <Loader /> : <FaBrain size={20} className="drop-shadow-sm" />}
         </button>
       </div>
+
 
       {/* Render AI Response */}
       {aiResponse.length > 0 && (
