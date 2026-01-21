@@ -1,4 +1,3 @@
-import { Theme } from 'next-auth'
 import { create } from 'zustand'
 
 interface NightType {
@@ -6,9 +5,17 @@ interface NightType {
     setIsNight: () => void;
     removeIsNight: () => void;
 }
-const value = localStorage.getItem('theme')
+
+const getInitialNightMode = () => {
+    if (typeof window !== 'undefined') {
+        const value = localStorage.getItem('theme')
+        return value === 'dark'
+    }
+    return false
+}
+
 export const useNight = create<NightType>((set) => ({
-    isNight: value === 'dark' ? true : false,
-    setIsNight: () => set(state => ({ isNight: !state })),
+    isNight: getInitialNightMode(),
+    setIsNight: () => set(state => ({ isNight: !state.isNight })),
     removeIsNight: () => set({ isNight: false }),
 }))
