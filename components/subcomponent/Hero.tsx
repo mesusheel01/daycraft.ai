@@ -50,7 +50,7 @@ export const Hero = () => {
   };
 
   return (
-    <div className='flex flex-col min-h-[400px] items-center gap-8 justify-center text-center space-y-6 mt-20'>
+    <div className='flex flex-col min-h-[400px] items-center gap-8 justify-center text-center mt-10 md:mt-20'>
       {/* hero-text */}
       <div className='flex flex-col gap-4'>
         <h1 className='text-3xl md:text-4xl lg:text-5xl'>
@@ -66,7 +66,7 @@ export const Hero = () => {
         </div>
       </div>
       {/* demo video section */}
-      <div className="relative aspect-video w-[330px] md:w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
+      <div className="relative aspect-video translate-y-10 md:translate-y-0 w-[330px] md:w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
         <iframe
           src="https://www.youtube.com/embed/Al3UOokRSIM?autoplay=0&mute=0&loop=1&playlist=Al3UOokRSIM"
           title="DayCraft.ai Demo"
