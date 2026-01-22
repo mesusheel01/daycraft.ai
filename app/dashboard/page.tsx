@@ -148,25 +148,37 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col min-h-screen mb-24 items-center justify-between text-center px-4 py-6">
-      <div className="flex flex-col items-center w-full max-w-[750px] gap-4 overflow-y-auto flex-1">
+      <div className="flex flex-col items-center w-full max-w-[750px] gap-4 overflow-y-auto no-scrollbar flex-1">
         {aiResponse.length > 0 ? (
           <>
-            <div className="w-full flex justify-between items-center mb-4">
-              <h2 className="text-sm flex gap-1 md:text-2xl font-semibold text-purple-600 mb-2">
-                <motion.button
-                  initial={{ opacity: 0, scale: 0.8, rotateX: -20 }}
-                  animate={{ opacity: 1, scale: 1, rotateX: 0 }}
-                  exit={{ opacity: 0, scale: 0.8, rotateX: 20 }}
-                  transition={{ duration: 0.15 }}
+            <div className="w-full flex justify-between items-center">
+              <h2 className="text-sm items-center flex gap-1 md:text-2xl font-semibold ">
+                <button
                   onClick={toggleTheme}
-
+                  className="flex items-center justify-center p-1 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                 >
-                  {theme === 'light' ? <FaCloudSun className="text-chart-4" size={20} /> : <FaCloudMoon size={20} className="text-chart-4" />}
-                </motion.button>
-                <p>Your Personalized Day Plan</p>
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.div
+                      key={theme}
+                      initial={{ opacity: 0, scale: 0.8, rotate: -90 }}
+                      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                      exit={{ opacity: 0, scale: 0.8, rotate: 90 }}
+                      transition={{ duration: 0.15 }}
+                    >
+                      {theme === 'light' ? (
+                        <FaCloudSun className="text-chart-4" size={20} />
+                      ) : (
+                        <FaCloudMoon size={20} className="text-chart-4" />
+                      )}
+                    </motion.div>
+                  </AnimatePresence>
+                </button>
+
+                <p className='text-md sm:text-xl'>Your Personalized Day Plan</p>
               </h2>
-              <div>
-                <button onClick={handleClearClick()} className="text-sm text-neutral-700 hover:text-neutral-600 transition-colors duration-300 dark:text-neutral-300 hover:dark:text-neutral-600 mr-4">Clear</button>
+              <div className='flex gap-3 sm:gap-8 items-center mr-2 sm:mr-0'>
+                <button onClick={handleClearClick()} className="text-xs md:text-sm text-neutral-700 hover:text-neutral-400 transition-colors duration-300 dark:text-neutral-300 hover:dark:text-neutral-600">Clear</button>
+                <button className='text-xs text-red-500 hover:text-red-700 transition' onClick={() => signOut()}>Signout</button>
               </div>
             </div>
             {aiResponse.map((item, index) => (
@@ -174,8 +186,8 @@ const Dashboard = () => {
                 key={item.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: item.id * 0.05 }}
-                className="bg-secondary shadow-sm border border-border rounded-lg p-3 text-left w-full"
+                transition={{ delay: index * 0.08 }}
+                className="bg-secondary shadow-sm translate-y-5 border border-border rounded-lg p-3 text-left w-full"
               >
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center justify-between">
@@ -275,18 +287,43 @@ const Dashboard = () => {
           </>
         ) : (
           <>
-            <div className="flex items-center justify-between gap-20">
+            <div className="flex items-center justify-between w-full">
               <h1 className="text-lg md:text-3xl font-semibold">
                 Hi <span className="text-purple-500">{user?.name}✨</span>
               </h1>
-              <button className='text-xs text-red-500 mt-4 hover:text-red-700 transition' onClick={() => signOut()}>Signout</button>
+              <div className='flex justify-between gap-2 md:gap-4'>
+                <button
+                  onClick={toggleTheme}
+                  className="flex items-center p-1 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                >
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.div
+                      key={theme}
+                      initial={{ opacity: 0, scale: 0.8, rotate: -180 }}
+                      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                      exit={{ opacity: 0, scale: 0.8, rotate: 180 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {theme === 'light' ? (
+                        <FaCloudSun className="text-chart-4" size={20} />
+                      ) : (
+                        <FaCloudMoon size={20} className="text-chart-4" />
+                      )}
+                    </motion.div>
+                  </AnimatePresence>
+                </button>
+
+                <button className='text-xs text-red-500 hover:text-red-700 transition' onClick={() => signOut()}>Signout</button>
+              </div>
             </div>
-            <p className="text-[12px] md:text-base text-neutral-600 max-w-[500px]">
-              Tell me what you’d love to achieve today — I’ll plan your perfect day in seconds.
-            </p>
-            <p className="text-[10px] md:text-xs text-red-500">
-              Tip: Include your mood or goals for a smarter and personalized plan.
-            </p>
+            <div className='translate-y-10 flex flex-col gap-2'>
+              <p className="text-[12px] md:text-base text-neutral-600 max-w-[500px]">
+                Tell me what you’d love to achieve today — I’ll plan your perfect day in seconds.
+              </p>
+              <p className="text-[10px] md:text-xs text-red-500">
+                Tip: Include your mood or goals for a smarter and personalized plan.
+              </p>
+            </div>
           </>
         )}
       </div>

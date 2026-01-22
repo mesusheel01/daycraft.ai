@@ -76,7 +76,7 @@ export const Hero = () => {
       </div>
 
       {/* hero-AiButton */}
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[95%] max-w-[750px] bg-white/10 dark:bg-black/10 backdrop-blur-md border border-neutral-300/50 dark:border-white/10 rounded-2xl shadow-xl flex items-center gap-3 p-2 group transition-all duration-300 hover:border-purple-500/30">
+      <div className="fixed bottom-12 left-1/2 -translate-x-1/2 w-[95%] max-w-[750px] bg-white/10 dark:bg-black/10 backdrop-blur-md border border-neutral-300/50 dark:border-white/10 rounded-2xl shadow-xl flex items-center gap-3 p-2 group transition-all duration-300 hover:border-purple-500/30">
         <textarea
           value={prompt}
           onChange={(e) => {

@@ -113,24 +113,14 @@
 }
 
 @layer utilities {
-  .bg-btn-accent {
-    background-color: var(--accent);
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 
-  .hover\:bg-btn-accent-hover:hover {
-    background-color: var(--accent);
-    opacity: 0.9;
-  }
-
-  .text-btn-accent {
-    color: var(--accent);
-  }
-
-  .text-accent {
-    color: var(--accent);
-  }
-
-  .bg-accent {
-    background-color: var(--accent);
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
   }
 }

@@ -9,7 +9,7 @@ const model = "gpt-4o-mini";
 export async function aiGenerate(prompt: string, isNight: boolean) {
   const d = new Date()
   const currentHour = d.getHours()
-  console.log(isNight)
+  // console.log(isNight)
   const timeRange = isNight ? `from now (${currentHour}:00 ) until 6:00 AM tomorrow` : `from now ${currentHour}:00 to ${currentHour + 12}`
 
   const client = ModelClient(endpoint, new AzureKeyCredential(token));
