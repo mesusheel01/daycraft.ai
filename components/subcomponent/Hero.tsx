@@ -66,7 +66,7 @@ export const Hero = () => {
         </div>
       </div>
       {/* demo video section */}
-      <div className="relative aspect-video translate-y-20 md:translate-y-0 w-[330px] md:w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
+      <div className="relative aspect-video translate-y-10 md:translate-y-0 w-[330px] md:w-full max-w-5xl mx-auto rounded-2xl overflow-hidden shadow-lg">
         <iframe
           src="https://www.youtube.com/embed/Al3UOokRSIM?autoplay=0&mute=0&loop=1&playlist=Al3UOokRSIM"
           title="DayCraft.ai Demo"
