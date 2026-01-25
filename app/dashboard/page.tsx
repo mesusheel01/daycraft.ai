@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useNight } from '@/store/nightStore';
 import { FaBrain, FaCloudMoon, FaCloudSun } from 'react-icons/fa';
 import { useTheme } from '@/theme/ThemeProvider';
+import PromptHelp from '@/components/subcomponent/PromptHelp';
 
 type AiResponseItem = {
   id: number;
@@ -31,6 +32,15 @@ const Dashboard = () => {
   const { theme, toggleTheme } = useTheme()
   const router = useRouter();
   const user = session?.user;
+  const promptInputRef = React.useRef<HTMLTextAreaElement>(null);
+
+  const handleApplyPrompt = (generatedPrompt: string) => {
+    setPrompt(generatedPrompt);
+    // Focus the textarea after a small delay to ensure state update doesn't interfere
+    setTimeout(() => {
+      promptInputRef.current?.focus();
+    }, 100);
+  };
 
   const getTodoList = async () => {
     try {
@@ -327,24 +337,29 @@ const Dashboard = () => {
           </>
         )}
       </div>
-
-      {/* Bottom AI Prompt Section */}
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[95%] max-w-[750px] bg-white/10 dark:bg-black/10 backdrop-blur-md border border-neutral-300/50 dark:border-white/10 rounded-2xl shadow-xl flex items-center gap-3 p-2 group transition-all duration-300 hover:border-purple-500/30">
-        <textarea
-          value={prompt}
-          onChange={(e) => {
-            setError('');
-            setPrompt(e.target.value);
-          }}
-          placeholder="Plan my day..."
-          className="flex-1 resize-none bg-secondary/50 dark:bg-neutral-900/50 backdrop-blur-sm py-3 px-4 h-[60px] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 text-foreground transition-all duration-300 placeholder:text-neutral-500"
-        />
-        <button
-          onClick={() => handlePromptClick(prompt)}
-          className="h-12 w-12 bg-gradient-to-tr from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-500/20 flex items-center justify-center transition-all duration-300 rounded-xl hover:scale-105 active:scale-95 group-hover:shadow-purple-500/40"
-        >
-          {loading ? <Loader /> : <FaBrain size={20} className="drop-shadow-sm" />}
-        </button>
+      {/* Bottom Fixed Section */}
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[95%] max-w-[750px] z-50 flex flex-col items-end pointer-events-none">
+        <div className="pointer-events-auto">
+          <PromptHelp onApply={handleApplyPrompt} />
+        </div>
+        <div className="w-full bg-white/10 dark:bg-black/10 backdrop-blur-md border border-neutral-300/50 dark:border-white/10 rounded-2xl shadow-xl flex items-center gap-3 p-2 group transition-all duration-300 hover:border-purple-500/30 pointer-events-auto">
+          <textarea
+            ref={promptInputRef}
+            value={prompt}
+            onChange={(e) => {
+              setError('');
+              setPrompt(e.target.value);
+            }}
+            placeholder="Plan my day..."
+            className="flex-1 resize-none bg-secondary/50 dark:bg-neutral-900/50 backdrop-blur-sm py-3 px-4 h-[60px] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/50 text-foreground transition-all duration-300 placeholder:text-neutral-500"
+          />
+          <button
+            onClick={() => handlePromptClick(prompt)}
+            className="h-12 w-12 bg-gradient-to-tr from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-500/20 flex items-center justify-center transition-all duration-300 rounded-xl hover:scale-105 active:scale-95 group-hover:shadow-purple-500/40"
+          >
+            {loading ? <Loader /> : <FaBrain size={20} className="drop-shadow-sm" />}
+          </button>
+        </div>
       </div>
 
     </div>
