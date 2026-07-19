@@ -1,4 +1,4 @@
-import Redis from "ioredis";
+import { Redis } from "@upstash/redis";
 
 const globalForRedis = globalThis as unknown as {
   redis?: Redis;
@@ -6,8 +6,9 @@ const globalForRedis = globalThis as unknown as {
 
 export const redis =
   globalForRedis.redis ??
-  new Redis(process.env.REDIS_URL!, {
-    maxRetriesPerRequest: 3,
+  new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL!,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
   });
 
 // THIS LINE IS THE FIX — without it, every hot-reload / module re-import
@@ -15,11 +16,3 @@ export const redis =
 if (process.env.NODE_ENV !== "production") {
   globalForRedis.redis = redis;
 }
-
-redis.on("connect", () => {
-  console.log("✅ Redis Connected");
-});
-
-redis.on("error", (err) => {
-  console.error("Redis Error:", err);
-});
