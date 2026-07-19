@@ -4,7 +4,10 @@ import { redis } from "./lib/redis";
 
 export async function middleware(req: NextRequest) {
     // rate limiting logix
-    const ip = req.ip ?? req.headers.get("x-forwareded-for") ?? 'unknown'
+    const ip =
+                req.headers.get("x-forwarded-for")?.split(",")[0].trim() ??
+                req.headers.get("x-real-ip") ??
+                "unknown";
     const count = await redis.incr(ip)
     console.log(count)
     if(count == 1){
