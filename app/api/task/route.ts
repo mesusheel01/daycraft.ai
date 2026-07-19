@@ -92,7 +92,7 @@ export const POST = async (request: NextRequest) => {
           skipDuplicates: true,
         })
     ]);
-    await redis.set(`schedule:${userId}`, JSON.stringify(parsedData), "EX", 60 * 60 * 12); // Cache for 12 hours
+    await redis.set(`schedule:${userId}`, JSON.stringify(parsedData), {ex: 60 * 60 * 12}); // Cache for 12 hours
     console.log("Updated schedule saved to database and cache for user:", userId);
     return new Response(
       JSON.stringify({ saved: true, count: parsedData.length }),
